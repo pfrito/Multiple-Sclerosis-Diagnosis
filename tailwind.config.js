@@ -2,7 +2,11 @@
 export default {
   content: ['./public/**/*.html', './src/**/*.{js,jsx,ts,tsx,vue}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        nunito: ["Nunito"],
+      }
+    },
   },
   plugins: [],
 }
