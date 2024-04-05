@@ -1,7 +1,19 @@
-# Vue 3 + Vite
+# Multiple Sclerosis Diagnosis
+## Description
+Small application to query a prolog program to diagnose patients with possible Multiple Sclerosis. Its made with Vue 3, TailwindCSS and Prolog. It should be clarified that the conclusions of the program have no medical validation of any kind. 
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Design
+![first-image](public/first-image.jpg)
+![second-image](public/second-image.jpg)
 
-## Recommended IDE Setup
+## Build Setup
+```bash
+# install dependencies
+$ npm install
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+# serve with hot reload at localhost:5173
+$ npm run dev
+```
+
+## Contribution
+To contribute to this project please check out the [contribution guidelines](https://github.com/YurisCodingClub/accessibility-mentor/blob/main/CONTRIBUTING.md).
