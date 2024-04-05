@@ -16,6 +16,7 @@ let randomNumber = ref(null)
 let lumbarTest = ref(false);
 let mriTest = ref(false);
 let electroTest = ref(false);
+let diagnosis = ref("");
 
 onMounted(() => {
   randomNumber.value = Math.floor(Math.random() * 6);
@@ -39,6 +40,51 @@ function toggleSymptom(symptom) {
   }
   else {
     selectedSymptoms.value.push(symptom);
+  }
+}
+
+function submit() {
+  let type = "";
+  let gravedad = "";
+
+  if (lumbarTest.value && selectedSymptoms.value.length >= 3) {
+    diagnosis.value = "El paciente tiene Esclerosis Multiple\n";
+
+    if ((selectedSymptoms.value.includes('entumecimiento') && selectedSymptoms.value.includes('debilidad muscular') && selectedSymptoms.value.includes('fatiga persistente')) && (!selectedSymptoms.value.includes('incontinencia urinaria') || !selectedSymptoms.value.includes('perdida de vision') || !selectedSymptoms.value.includes('habla arrastrada')) && mriTest.value && selectedSymptoms.value.length < 5) {
+      type = "Esclerosis Multiple Remitente Recurrente";
+    }
+    else if ((selectedSymptoms.value.includes('espasmos') && selectedSymptoms.value.includes('vision doble') && selectedSymptoms.value.includes('dificultad de coordinacion')) && (!selectedSymptoms.value.includes('incontinencia urinaria') || !selectedSymptoms.value.includes('perdida de vision') || !selectedSymptoms.value.includes('habla arrastrada'))) {
+      type = "Esclerosis Multiple Primaria Progresiva";
+    }
+    else if (mriTest.value && !electroTest.value && selectedSymptoms.value.includes('incontinencia urinaria') && selectedSymptoms.value.includes('perdida de vision') && selectedSymptoms.value.includes('habla arrastrada')) {
+      type = "Esclerosis Multiple Secundaria Progresiva";
+    }
+    else {
+      type = "Esclerosis Multiple Recurrente Remitente sin lesiones en RM cerebral";
+    }
+
+    diagnosis.value += `Tipo: ${type}\n`;
+
+    if (type == "Esclerosis Multiple Remitente Recurrente" || "Esclerosis Multiple Recurrente Remitente sin lesiones en RM cerebral") {
+      gravedad = "Leve"
+    }
+    if (type == "Esclerosis Multiple Primaria Progresiva") {
+      gravedad = "Moderada"
+    }
+    if(type == "Esclerosis Multiple Secundaria Progresiva") gravedad = "Severa"
+
+    diagnosis.value += `Gravedad: ${gravedad}\n`;
+
+    if (gravedad == "Leve") {
+      diagnosis.value += "Medicamentos: Copaxone, Esteroides\n"
+    }
+    else if (gravedad == "Moderada") {
+      diagnosis.value += "Medicamentos: Fingolimod\n"
+    }
+    else diagnosis.value += "Medicamentos: Interferones, Esteroides\n"
+  }
+  else {
+    diagnosis.value = "El paciente no tiene Esclerosis Multiple\n";
   }
 }
 </script>
@@ -108,13 +154,14 @@ function toggleSymptom(symptom) {
       </div>
     </div>
 
-    <button class="bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-blue-100  rounded-full px-4 pt-1 pb-2 uppercase transition-all ease-in-out duration-100">
+    <button class="bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-blue-100  rounded-full px-4 pt-1 pb-2 uppercase transition-all ease-in-out duration-100" @click="submit">
       <span>Diagnostico</span>
     </button>
 
     <textarea
       class="bg-gray-100 border-2 border-gray-200 rounded-sm p-4 w-full max-w-md h-40 mb-4"
       readonly
+      :value="diagnosis"
       placeholder="Diagnóstico..."
     ></textarea>
   </div>
