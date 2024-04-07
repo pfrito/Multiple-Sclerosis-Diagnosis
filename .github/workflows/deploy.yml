@@ -1,41 +1,14 @@
-name: Deploy to gh-pages
-
-on:
-  push:
-    branches:
-      - main
-
+name: Build Vue
+on: [push]
 jobs:
-  build-and-deploy:
+  build_vue:
     runs-on: ubuntu-latest
-
+    name: Build Vue
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build project
-        run: npm run build
-
-      - name: Add dist folder
-        run: git add dist -f
-        env:
-          GIT_AUTHOR_NAME: pfrito
-          GIT_AUTHOR_EMAIL: carlos.rolando.morell@gmail.com
-          GIT_COMMITTER_NAME: pfrito
-          GIT_COMMITTER_EMAIL: carlos.rolando.morell@gmail.com
-
-      - name: Commit changes
-        run: git commit -m "adding dist"
-        env:
-          GIT_AUTHOR_NAME: pfrito
-          GIT_AUTHOR_EMAIL: carlos.rolando.morell@gmail.com
-          GIT_COMMITTER_NAME: pfrito
-          GIT_COMMITTER_EMAIL: carlos.rolando.morell@gmail.com
-
-      - name: Push to gh-pages
-        run: git subtree push --prefix dist https://github.com/pfrito/Multiple-Sclerosis-Diagnosis gh-pages
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
+    - id: Build-Vue
+      uses: xRealNeon/VuePagesAction@1.0.1
+      with:
+        username: 'pfrito'
+        reponame: 'Multiple-Sclerosis-Diagnosis'
+        token: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
