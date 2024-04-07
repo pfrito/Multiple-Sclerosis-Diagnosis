@@ -17,9 +17,14 @@ let lumbarTest = ref(false);
 let mriTest = ref(false);
 let electroTest = ref(false);
 let diagnosis = ref("");
+let showScrollUpButton = ref(false);
 
 onMounted(() => {
   randomNumber.value = Math.floor(Math.random() * 6);
+
+  window.addEventListener('scroll', () => {
+    showScrollUpButton.value = window.pageYOffset > 0
+  })
 })
 
 function setLumbarTest(result) {
@@ -41,6 +46,11 @@ function toggleSymptom(symptom) {
   else {
     selectedSymptoms.value.push(symptom);
   }
+}
+
+function handleScrollUp() {
+  var component = document.getElementById('main-content');
+  component.scrollIntoView({ behavior: 'smooth' });
 }
 
 function submit() {
@@ -90,7 +100,7 @@ function submit() {
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-10 text-gray-700 p-4">
+  <main class="flex flex-col items-center gap-10 text-gray-700 p-4" id="main-content">
     <div class="flex items-center max-w-sm mt-4">
       <i class="mdi mdi-help rounded-full text-blue-700 bg-blue-100 text-3xl h-min px-3 py-2 mr-3"></i>
       <p>
@@ -164,7 +174,11 @@ function submit() {
       :value="diagnosis"
       placeholder="Diagnóstico..."
     ></textarea>
-  </div>
+  </main>
+
+  <button class="bg-blue-600 text-blue-100 rounded-full fixed bottom-20 right-4 px-3 py-2 shadow-lg hover:text-blue-700 hover:bg-blue-100 transition-all ease-in-out duration-150" :class="{ 'opacity-100': showScrollUpButton, 'opacity-0 cursor-default': !showScrollUpButton }" @click="handleScrollUp">
+      <i class="mdi mdi-arrow-up text-3xl"></i>
+  </button>
 
   <footer style="background-color: #f5f5f5;" class="flex items-center justify-center border-t w-full py-5 text-gray-700 font-nunito">Made with <img src="./assets/pixel-art-heart.png" alt="pixel art heart" class="w-5 h-5 mx-1"> by<a href="https://github.com/pfrito" class="uppercase hover:text-black ml-1">Carlos</a></footer>
 
