@@ -180,6 +180,4 @@ function submit() {
       <i class="mdi mdi-arrow-up text-3xl"></i>
   </button>
 
-  <footer style="background-color: #f5f5f5;" class="flex items-center justify-center border-t w-full py-5 text-gray-700 font-nunito">Made with <img src="./assets/pixel-art-heart.png" alt="pixel art heart" class="w-5 h-5 mx-1"> by<a href="https://github.com/pfrito" class="uppercase hover:text-black ml-1">Carlos</a></footer>
-
 </template>
